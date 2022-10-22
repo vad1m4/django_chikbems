@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <style>
+        .text {
+            font-family: 'Trebuchet MS';
+            text-align: center;
+        }
+        #paragraph_camera {
+            font-family: 'Trebuchet MS';
+            text-align: center;
+            margin: 0;
+        }
+        #rcorner {
+            border-radius: 25px;
+            border: 3px solid;
+            border-color: #5a5a5a;
+            padding: 20px;
+            background-color: white;
+        }
+        a:link, a:visited {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer; 
+            font-size: 150%;
+            font-family:'Trebuchet MS';
+            margin: 1%;
+        }
+        body, html {
+            margin: 0;
+        }
+        a:link:active, a:visited:active {
+            color: #ffffff;
+        }
+        body {
+            background-image: url("{% static '/images/background.png' %}");
+            background-repeat: repeat;
+            background-size: 30%;
+            background-attachment: fixed;
+        }
+        #top_bar {
+            background-image: linear-gradient(to bottom, #000000 0%, transparent 10%); 
+            background-attachment:fixed;
+            border: 1px solid;
+            border-color: transparent transparent darkgray transparent;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+        }
+        .products {
+            display: grid;
+            grid-template-columns:repeat(3, 1fr);
+            text-align: center;
+        }
+        .product {
+            background-color: #5a5a5a;
+            border-radius: 15px;
+            border: 3px black;
+            height: 400px;
+            width: 300px;
+            padding: 10px;
+            margin: 0 auto;
+        }
+    </style>
+    <body>
+        <div id="top_bar">
+            <div style="margin: 1; text-align: center; padding: 20px;">
+                <a href="">Cart</a>
+                <!-- url 'shopping_cart'%} -->
+                <a href="{%url 'home'%}", style="margin: 30%;">Chikbems</a>
+                <a href="">Products</a>
+                <!-- url 'products'%} -->
+            </div>
+        </div>
+        <div style="margin: 10% 3% 3% 3%; height: 1000px;", id="rcorner">
+            <div class="text">
+                <h1>Welcome!</h1>
+                <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
+                <p style="font-size:120%">We provide high quality security cameras 
+                and we can also install them for an additional price.</p>
+                <h2>See what's new:</h2>
+            </div>
+            <div class="products">
+                {% for product in products|slice:"0:3"%}
+                <div class="product">
+                    <img src="{{ product.pictures.url }}", width="280", height="280", style="border-radius: 15px; margin-top: 2%">
+                    <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
+                    <h3 id="paragraph_camera">{{product.type}}</h3>
+                    <h3 id="paragraph_camera">
+                        {% if not product.has_nightvision %}
+                        No 
+                        {% endif %}
+                        Nightvision</h3>
+                    <h1 id="paragraph_camera">${{product.price}}</h2>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

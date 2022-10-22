@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <body style="background-color:powderblue">
+        <h1 style="text-align: center; font-size:300%; font-family:verdana; background-color:blueviolet">чікбемс</h1>
+        {%for product in products%}
+        <div style="background-color:brown">
+            <p>{{product.title}}</p>
+            <p>{{product.price}}</p>
+            <p>{{product.type}}</p>
+            <p>{{product.has_nightvision}}</p>
+            <a href="{%url 'product_detail' product.id%}">See details</a>
+        </div>
+        {%endfor%}
+    </body>
+</html>
