@@ -13,7 +13,7 @@
             z-index: -2;
         }
         .background1 {
-            background-image: linear-gradient(to top, white 15%, transparent 50%);
+            background-image: linear-gradient(to top, white 30%, transparent 50%);
         }
         .top_text, .top_bar {
             text-align: center; 
@@ -39,6 +39,8 @@
         .info_text {
             font-size: 150%;
             padding: 10px;
+            margin-left: 200px;
+            margin-right: 200px;
         }
         #paragraph_camera {
             font-family: 'Consolas';
@@ -51,7 +53,7 @@
             border-color: #5a5a5a;
             padding: 20px;
             background-color: white;
-            margin: 10% 3% 3% 3%; 
+            margin: 10% 11% 3% 11%; 
         }
         body, html, .background1 {
             margin: 0;
@@ -110,6 +112,12 @@
             background-color: white;
             z-index: -1;
         }
+        #picture {
+            width: 280px;
+            height: 280px;
+            border-radius: 15px; 
+            margin-top: 2%"
+        }
     </style>
     <body>
         <div class="background">
@@ -130,7 +138,7 @@
                     <div class="products">
                         {% for product in products|slice:"0:3"%}
                         <a href="{%url 'product_detail' product.id%}", class="product">
-                            <img src="{{ product.pictures.url }}", width="280", height="280", style="border-radius: 15px; margin-top: 2%">
+                            <img src="{{ product.pictures.url }}" id="picture">
                             <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
                             <h3 id="paragraph_camera">{{product.type}}</h3>
                             <h3 id="paragraph_camera">
@@ -144,7 +152,6 @@
                     </div>
                 </div>
             </div>
-            <div class="background2"></div>
         </div>
         <div class="info_text">
             <h1 style="font-size:200%; margin: 0;">Why Chikbems?</h1>
