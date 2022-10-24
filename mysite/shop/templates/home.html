@@ -3,11 +3,17 @@
 <!DOCTYPE html>
 <html>
     <style>
-        .background1 {
+        .background {
             background-image: url("{% static '/images/background.png' %}");
-            background-repeat: repeat;
-            background-size: 28%;
             background-attachment: fixed;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            padding: 0%;
+            position: relative;
+            z-index: -2;
+        }
+        .background1 {
+            background-image: linear-gradient(to top, white 15%, transparent 50%);
         }
         .top_text, .top_bar {
             text-align: center; 
@@ -45,7 +51,6 @@
             border-color: #5a5a5a;
             padding: 20px;
             background-color: white;
-            height: 650px;
             margin: 10% 3% 3% 3%; 
         }
         body, html, .background1 {
@@ -76,11 +81,14 @@
             width: 300px;
             padding: 10px;
             margin: 0 auto;
+            text-decoration: none;
+            cursor: pointer; 
+            color: black;
+            display: block;
         }
         #bottom_text, #bottom_text_sl {
             color: #616161;
             text-decoration: none; 
-            font-size: 100%;
             font-family:'Consolas';
         }
         #bottom_text_sl {
@@ -90,58 +98,66 @@
             display: grid;
             grid-template-columns:repeat(4, 1fr);
             bottom: 0;
-            width: 100%;
             border: 1px solid;
             border-color: rgb(112, 112, 112) transparent transparent transparent;
             background-color: rgb(206, 206, 206);
         }
+        .background2 {
+            width: 100%;
+            height: 150px;
+            position: absolute;
+            bottom: 0;
+            background-color: white;
+            z-index: -1;
+        }
     </style>
     <body>
-        <div class="background1">
-            <div class="top_bar">
-                <a href="" id="top_sl">Cart</a>
-                <!-- url 'shopping_cart'%} -->
-                <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
-                <a href="" id="top_sl">Products</a>
-                <!-- url 'products'%} -->
-            </div>
-            <div id="rcorner">
-                <div class="text">
-                    <h1>Welcome!</h1>
-                    <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
-                    <p style="font-size:120%">We provide high quality security cameras 
-                    and we can also install them for an additional price.</p>
-                    <h2>See what's new:</h2>
+        <div class="background">
+            <div class="background1">
+                <div class="top_bar">
+                    <a href="url 'shopping_cart'" id="top_sl">Cart</a>
+                    <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
+                    <a href="url 'products'" id="top_sl">Products</a>
                 </div>
-                <div class="products">
-                    {% for product in products|slice:"0:3"%}
-                    <div class="product">
-                        <img src="{{ product.pictures.url }}", width="280", height="280", style="border-radius: 15px; margin-top: 2%">
-                        <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
-                        <h3 id="paragraph_camera">{{product.type}}</h3>
-                        <h3 id="paragraph_camera">
-                            {% if not product.has_nightvision %}
-                            No 
-                            {% endif %}
-                            Nightvision</h3>
-                        <h1 id="paragraph_camera">${{product.price}}</h2>
+                <div id="rcorner">
+                    <div class="text">
+                        <h1>Welcome!</h1>
+                        <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
+                        <p style="font-size:120%">We provide high quality security cameras 
+                        and we can also install them for an additional price.</p>
+                        <h2>See what's new:</h2>
                     </div>
-                    {% endfor %}
+                    <div class="products">
+                        {% for product in products|slice:"0:3"%}
+                        <a href="{%url 'product_detail' product.id%}", class="product">
+                            <img src="{{ product.pictures.url }}", width="280", height="280", style="border-radius: 15px; margin-top: 2%">
+                            <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
+                            <h3 id="paragraph_camera">{{product.type}}</h3>
+                            <h3 id="paragraph_camera">
+                                {% if not product.has_nightvision %}
+                                No 
+                                {% endif %}
+                                Nightvision</h3>
+                            <h1 id="paragraph_camera">${{product.price}}</h2>
+                        </a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
+            <div class="background2"></div>
         </div>
         <div class="info_text">
-            <h1 style="font-size:200%">Why Chikbems?</h1>
+            <h1 style="font-size:200%; margin: 0;">Why Chikbems?</h1>
             <p>Chikbems is a fresh company which is chasing the opportunity of becoming
                 the best camera-selling company in Ukraine.
             </p>
-            <h3 style="font-size: 170%">Ready to go</h3>
+            <h3 style="font-size: 170%; margin: 0;">Ready to go</h3>
             <p>Although we're new, we're already up and running, ready to deliver your
                 cameras at lightning-fast speeds. We've been watching other companies and taking notes. We corrected
                 all of their mistakes and made our own perfect company.
             </p>
             <p>We're new, but we're experienced.</p>
-            <h3 style="font-size: 170%">We're cheaper</h3>
+            <h3 style="font-size: 170%; margin: 0;">We're cheaper</h3>
             <p>Since we're a fresh company on the market, our prices are cheaper by a fair amount 
                 to attract new customers. By buying from us everybody benefits - you get a cheaper price 
                 and we get a new customer!
