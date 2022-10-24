@@ -3,12 +3,39 @@
 <!DOCTYPE html>
 <html>
     <style>
-        .text, .bottom_container {
-            font-family: 'Trebuchet MS';
+        .background1 {
+            background-image: url("{% static '/images/background.png' %}");
+            background-repeat: repeat;
+            background-size: 28%;
+            background-attachment: fixed;
+        }
+        .top_text, .top_bar {
+            text-align: center; 
+            padding: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer; 
+            font-family:'Consolas';
+        }
+        #top_sl {
+            text-align: center; 
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer; 
+            font-size: 150%;
+            font-family:'Consolas';
+            width: 100%;
+        }
+        .text, .bottom_container, .info_text {
+            font-family: 'Consolas';
             text-align: center;
         }
+        .info_text {
+            font-size: 150%;
+            padding: 10px;
+        }
         #paragraph_camera {
-            font-family: 'Trebuchet MS';
+            font-family: 'Consolas';
             text-align: center;
             margin: 0;
         }
@@ -18,30 +45,13 @@
             border-color: #5a5a5a;
             padding: 20px;
             background-color: white;
-            height: 1000px;
+            height: 650px;
             margin: 10% 3% 3% 3%; 
         }
-        a:link, a:visited {
-            color: #ffffff;
-            text-decoration: none;
-            cursor: pointer; 
-            font-size: 150%;
-            font-family:'Trebuchet MS';
-            margin: 1%;
-        }
-        body, html {
+        body, html, .background1 {
             margin: 0;
         }
-        a:link:active, a:visited:active {
-            color: #ffffff;
-        }
-        body {
-            background-image: url("{% static '/images/background.png' %}");
-            background-repeat: repeat;
-            background-size: 30%;
-            background-attachment: fixed;
-        }
-        #top_bar {
+        .top_bar {
             background-image: linear-gradient(to bottom, #000000 0%, transparent 10%); 
             background-attachment:fixed;
             border: 1px solid;
@@ -49,6 +59,9 @@
             background-color: rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
+            display: grid;
+            grid-template-columns:repeat(3, 1fr);
+            text-align: center;
         }
         .products {
             display: grid;
@@ -64,69 +77,88 @@
             padding: 10px;
             margin: 0 auto;
         }
-        .bottom-text {
-            color: #000000;
-            text-decoration: none;
-            cursor: pointer; 
+        #bottom_text, #bottom_text_sl {
+            color: #616161;
+            text-decoration: none; 
             font-size: 100%;
-            font-family:'Trebuchet MS';
-            margin: 1%;
+            font-family:'Consolas';
+        }
+        #bottom_text_sl {
+            cursor: pointer;
         }
         .bottom_container {
             display: grid;
             grid-template-columns:repeat(4, 1fr);
-            position: absolute;
             bottom: 0;
-            background-color: #5a5a5a;
             width: 100%;
+            border: 1px solid;
+            border-color: rgb(112, 112, 112) transparent transparent transparent;
+            background-color: rgb(206, 206, 206);
         }
     </style>
     <body>
-        <div id="top_bar">
-            <div style="margin: 1; text-align: center; padding: 20px;">
-                <a href="">Cart</a>
+        <div class="background1">
+            <div class="top_bar">
+                <a href="" id="top_sl">Cart</a>
                 <!-- url 'shopping_cart'%} -->
-                <a href="{%url 'home'%}", style="margin: 30%;">Chikbems</a>
-                <a href="">Products</a>
+                <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
+                <a href="" id="top_sl">Products</a>
                 <!-- url 'products'%} -->
             </div>
+            <div id="rcorner">
+                <div class="text">
+                    <h1>Welcome!</h1>
+                    <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
+                    <p style="font-size:120%">We provide high quality security cameras 
+                    and we can also install them for an additional price.</p>
+                    <h2>See what's new:</h2>
+                </div>
+                <div class="products">
+                    {% for product in products|slice:"0:3"%}
+                    <div class="product">
+                        <img src="{{ product.pictures.url }}", width="280", height="280", style="border-radius: 15px; margin-top: 2%">
+                        <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
+                        <h3 id="paragraph_camera">{{product.type}}</h3>
+                        <h3 id="paragraph_camera">
+                            {% if not product.has_nightvision %}
+                            No 
+                            {% endif %}
+                            Nightvision</h3>
+                        <h1 id="paragraph_camera">${{product.price}}</h2>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        <div id="rcorner">
-            <div class="text">
-                <h1>Welcome!</h1>
-                <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
-                <p style="font-size:120%">We provide high quality security cameras 
-                and we can also install them for an additional price.</p>
-                <h2>See what's new:</h2>
-            </div>
-            <div class="products">
-                {% for product in products|slice:"0:3"%}
-                <div class="product">
-                    <img src="{{ product.pictures.url }}", width="280", height="280", style="border-radius: 15px; margin-top: 2%">
-                    <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
-                    <h3 id="paragraph_camera">{{product.type}}</h3>
-                    <h3 id="paragraph_camera">
-                        {% if not product.has_nightvision %}
-                        No 
-                        {% endif %}
-                        Nightvision</h3>
-                    <h1 id="paragraph_camera">${{product.price}}</h2>
-                </div>
-                {% endfor %}
-            </div>
-            <div style="position: relative; height: 37%; width: 100%;">
-                <div class="bottom_container">
-                    <p>2022 Chikbems, Inc.</p>
-                    <p>
-                        <a href="">Products</a>
-                    </p>
-                    <p>
-                        <a href="">Location</a>
-                    </p>
-                    <p>
-                        <a href="">Contact Chikbems</a>
-                    </p>
-                </div>
+        <div class="info_text">
+            <h1 style="font-size:200%">Why Chikbems?</h1>
+            <p>Chikbems is a fresh company which is chasing the opportunity of becoming
+                the best camera-selling company in Ukraine.
+            </p>
+            <h3 style="font-size: 170%">Ready to go</h3>
+            <p>Although we're new, we're already up and running, ready to deliver your
+                cameras at lightning-fast speeds. We've been watching other companies and taking notes. We corrected
+                all of their mistakes and made our own perfect company.
+            </p>
+            <p>We're new, but we're experienced.</p>
+            <h3 style="font-size: 170%">We're cheaper</h3>
+            <p>Since we're a fresh company on the market, our prices are cheaper by a fair amount 
+                to attract new customers. By buying from us everybody benefits - you get a cheaper price 
+                and we get a new customer!
+            </p>
+        </div> 
+        <div style= "width: 100%;">
+            <div class="bottom_container">
+                <p id="bottom_text">2022 Chikbems, Inc.</p>
+                <p>
+                    <a href="" id="bottom_text">Products</a>
+                </p>
+                <p>
+                    <a href="" id="bottom_text">Location</a>
+                </p>
+                <p>
+                    <a href="" id="bottom_text">Contact Chikbems</a>
+                </p>
             </div>
         </div>
     </body>
