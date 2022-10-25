@@ -9,6 +9,7 @@ class Product(models.Model):
     type = models.CharField(max_length=255, choices=types)
     has_nightvision = models.BooleanField(default=False)
     pictures = models.ImageField(upload_to="cameras")
+    usd = 37
 
     def __str__(self):
         return self.title

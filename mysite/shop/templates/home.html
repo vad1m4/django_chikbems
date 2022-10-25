@@ -2,21 +2,22 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <title>Chikbems | Products</title>
+    </head>
     <style>
         .background {
             background-image: url("{% static '/images/background.png' %}");
             background-attachment: fixed;
             background-size: 100%;
-            background-repeat: no-repeat;
             padding: 0%;
             position: relative;
-            z-index: -2;
         }
         .background1 {
-            background-image: linear-gradient(to top, white 30%, transparent 50%);
+            background-image: linear-gradient(to top, white 17%, transparent 50%);
         }
-        .top_text, .top_bar {
-            text-align: center; 
+        .top_bar {
             padding: 20px;
             color: #ffffff;
             text-decoration: none;
@@ -31,6 +32,7 @@
             font-size: 150%;
             font-family:'Consolas';
             width: 100%;
+            z-index: 1;
         }
         .text, .bottom_container, .info_text {
             font-family: 'Consolas';
@@ -48,7 +50,7 @@
             margin: 0;
         }
         #rcorner {
-            border-radius: 25px;
+            border-radius: 15px;
             border: 3px solid;
             border-color: #5a5a5a;
             padding: 20px;
@@ -69,13 +71,14 @@
             display: grid;
             grid-template-columns:repeat(3, 1fr);
             text-align: center;
+            z-index: 2;
         }
         .products {
             display: grid;
             grid-template-columns:repeat(3, 1fr);
             text-align: center;
         }
-        .product {
+        .product, .product:hover {
             background-color: #5a5a5a;
             border-radius: 15px;
             border: 3px black;
@@ -87,6 +90,12 @@
             cursor: pointer; 
             color: black;
             display: block;
+            transition: background-color 0.5s;
+            transition: color 0.5s;
+        }
+        .product:hover {
+            background-color: #a70000;
+            color: white;
         }
         #bottom_text, #bottom_text_sl {
             color: #616161;
@@ -127,7 +136,7 @@
                     <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
                     <a href="url 'products'" id="top_sl">Products</a>
                 </div>
-                <div id="rcorner">
+                <div id="rcorner" data-aos="fade-up">
                     <div class="text">
                         <h1>Welcome!</h1>
                         <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
@@ -146,7 +155,7 @@
                                 No 
                                 {% endif %}
                                 Nightvision</h3>
-                            <h1 id="paragraph_camera">${{product.price}}</h2>
+                            <h1 id="paragraph_camera">{% widthratio product.price 1 usd %}UAH</h2>
                         </a>
                         {% endfor %}
                     </div>
@@ -154,18 +163,18 @@
             </div>
         </div>
         <div class="info_text">
-            <h1 style="font-size:200%; margin: 0;">Why Chikbems?</h1>
-            <p>Chikbems is a fresh company which is chasing the opportunity of becoming
+            <h1 style="font-size:200%; margin: 0;", data-aos="fade-up">Why Chikbems?</h1>
+            <p data-aos="fade-up">Chikbems is a fresh company which is chasing the opportunity of becoming
                 the best camera-selling company in Ukraine.
             </p>
-            <h3 style="font-size: 170%; margin: 0;">Ready to go</h3>
-            <p>Although we're new, we're already up and running, ready to deliver your
+            <h3 style="font-size: 170%; margin: 0;", data-aos="fade-up">Ready to go</h3>
+            <p data-aos="fade-up">Although we're new, we're already up and running, ready to deliver your
                 cameras at lightning-fast speeds. We've been watching other companies and taking notes. We corrected
                 all of their mistakes and made our own perfect company.
             </p>
-            <p>We're new, but we're experienced.</p>
-            <h3 style="font-size: 170%; margin: 0;">We're cheaper</h3>
-            <p>Since we're a fresh company on the market, our prices are cheaper by a fair amount 
+            <p data-aos="fade-up">We're new, but we're experienced.</p>
+            <h3 style="font-size: 170%; margin: 0;", data-aos="fade-up">We're cheaper</h3>
+            <p data-aos="fade-up">Since we're a fresh company on the market, our prices are cheaper by a fair amount 
                 to attract new customers. By buying from us everybody benefits - you get a cheaper price 
                 and we get a new customer!
             </p>
@@ -185,4 +194,8 @@
             </div>
         </div>
     </body>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </html>

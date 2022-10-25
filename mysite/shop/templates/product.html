@@ -2,37 +2,35 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <title>Chikbems | {{ product.title }}</title>
+    </head>
     <style>
         .background {
             background-image: url("{% static '/images/background.png' %}");
             background-attachment: fixed;
             background-size: 100%;
-            background-repeat: no-repeat;
             padding: 0%;
             position: relative;
-            z-index: -2;
         }
         .background1 {
             background-image: linear-gradient(to top, white 30%, transparent 50%);
         }
         .top_text, .top_bar {
-            text-align: center; 
             padding: 20px;
             color: #ffffff;
             text-decoration: none;
             cursor: pointer; 
-            font-family:'Consolas';
         }
         #top_sl {
-            text-align: center; 
             color: #ffffff;
             text-decoration: none;
             cursor: pointer; 
             font-size: 150%;
-            font-family:'Consolas';
             width: 100%;
         }
-        .text, .bottom_container, .info_text {
+        .text, .bottom_container, .info_text, .top_text, .top_bar, #top_sl, #paragraph_camera, #bottom_text, #bottom_text_sl, button {
             font-family: 'Consolas';
             text-align: center;
         }
@@ -40,13 +38,8 @@
             font-size: 150%;
             padding: 10px;
         }
-        #paragraph_camera {
-            font-family: 'Consolas';
-            text-align: center;
-            margin: 0;
-        }
         #rcorner {
-            border-radius: 25px;
+            border-radius: 15px;
             border: 3px solid;
             border-color: #5a5a5a;
             padding: 20px;
@@ -74,22 +67,9 @@
             text-align: center;
             height: 608px;
         }
-        .product {
-            border-radius: 15px;
-            border: 3px #5a5a5a;
-            height: auto;
-            width: auto;
-            padding: 10px;
-            text-decoration: none;
-            cursor: pointer; 
-            color: black;
-            display: block;
-            margin: 2%;
-        }
         #bottom_text, #bottom_text_sl {
             color: #616161;
-            text-decoration: none; 
-            font-family:'Consolas';
+            text-decoration: none;
         }
         #bottom_text_sl {
             cursor: pointer;
@@ -114,6 +94,7 @@
             margin-top: 6%;
             height: 80%;
             width: 80%;
+            margin-bottom: -6%;
         }
         .picture_container {
             height: 100%;
@@ -123,7 +104,7 @@
         .charact_container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             text-align: left;
             margin-left: 16%;
             color: #616161;
@@ -131,6 +112,23 @@
         }
         b {
             margin-top: 7%;
+        }
+        .button_container {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+        }
+        button, button:hover {
+            background-color: #000000;
+            color: white;
+            font-size: 300%;
+            padding: 3%;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 10%;
+            transition: background-color 0.5s;
+        }
+        button:hover {
+            background-color: #a70000;
         }
     </style>
     <body>
@@ -141,13 +139,15 @@
                     <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
                     <a href="url 'products'" id="top_sl">Products</a>
                 </div>
-                <div id="rcorner">
+                <div id="rcorner" data-aos="fade-up">
                     <div class="products">
                         <div class="picture_container">
                             <img src="{{ product.pictures.url }}" alt="{{ product.title }}" id="picture">
                         </div>
                         <div class="text">
                             <h1> {{ product.title }} </h1>
+                                <b style="font-size: 170%;"> {% widthratio product.price 1 usd %}UAH </b>
+                                <p style="font-size: 150%;">Chracteristics:</p>
                             <div class="charact_container">
                                 <p>Type</p>
                                 <b> {{ product.type }} </b>
@@ -159,13 +159,14 @@
                                     No
                                     {% endif %}
                                 </b>
-                                <p>Price</p>
-                                <b> ${{ product.price }} </b>
                             </div>
+                            <a href="#">
+                                <button>Add to cart</button>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div style= "width: 100%;">
+                <div style="width: 100%;">
                     <div class="bottom_container">
                         <p id="bottom_text">2022 Chikbems, Inc.</p>
                         <p>
@@ -182,4 +183,8 @@
             </div>
         </div>
     </body>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </html>
