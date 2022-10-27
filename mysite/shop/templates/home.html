@@ -134,7 +134,7 @@
                 <div class="top_bar">
                     <a href="url 'shopping_cart'" id="top_sl">Cart</a>
                     <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
-                    <a href="url 'products'" id="top_sl">Products</a>
+                    <a href="{% url 'products' %}" id="top_sl">Products</a>
                 </div>
                 <div id="rcorner" data-aos="fade-up">
                     <div class="text">
@@ -183,13 +183,13 @@
             <div class="bottom_container">
                 <p id="bottom_text">2022 Chikbems, Inc.</p>
                 <p>
-                    <a href="" id="bottom_text">Products</a>
+                    <a href="{% url 'products' %}" id="bottom_text">Products</a>
                 </p>
                 <p>
-                    <a href="" id="bottom_text">Location</a>
+                    <a href="{% url 'location' %}" id="bottom_text">Location</a>
                 </p>
                 <p>
-                    <a href="" id="bottom_text">Contact Chikbems</a>
+                    <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
                 </p>
             </div>
         </div>
@@ -197,5 +197,10 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+    <script>
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
     </script>
 </html>

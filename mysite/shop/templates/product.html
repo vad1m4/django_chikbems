@@ -65,7 +65,6 @@
             display: grid;
             grid-template-columns:repeat(2, 1fr);
             text-align: center;
-            height: 608px;
         }
         #bottom_text, #bottom_text_sl {
             color: #616161;
@@ -106,12 +105,13 @@
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
             text-align: left;
-            margin-left: 16%;
             color: #616161;
             font-size: 150%;
         }
         b {
-            margin-top: 7%;
+            margin-top: 24px;
+            margin-bottom: 24px;
+            text-align: right;
         }
         .button_container {
             display: grid;
@@ -124,7 +124,9 @@
             padding: 3%;
             border-radius: 15px;
             cursor: pointer;
-            margin-top: 10%;
+            margin-left: 25px;
+            margin-top: 24px;
+            margin-bottom: 24px;
             transition: background-color 0.5s;
         }
         button:hover {
@@ -144,10 +146,10 @@
                         <div class="picture_container">
                             <img src="{{ product.pictures.url }}" alt="{{ product.title }}" id="picture">
                         </div>
-                        <div class="text">
+                        <div class="text", style="margin-left: 40px; margin-right: 20px">
                             <h1> {{ product.title }} </h1>
-                                <b style="font-size: 170%;"> {% widthratio product.price 1 usd %}UAH </b>
-                                <p style="font-size: 150%;">Chracteristics:</p>
+                            <b style="font-size: 170%;"> {% widthratio product.price 1 usd %}UAH </b>
+                            <p style="font-size: 150%;">Chracteristics:</p>
                             <div class="charact_container">
                                 <p>Type</p>
                                 <b> {{ product.type }} </b>
@@ -170,13 +172,13 @@
                     <div class="bottom_container">
                         <p id="bottom_text">2022 Chikbems, Inc.</p>
                         <p>
-                            <a href="" id="bottom_text">Products</a>
+                            <a href="{% url 'products' %}" id="bottom_text">Products</a>
                         </p>
                         <p>
-                            <a href="" id="bottom_text">Location</a>
+                            <a href="{% url 'location' %}" id="bottom_text">Location</a>
                         </p>
                         <p>
-                            <a href="" id="bottom_text">Contact Chikbems</a>
+                            <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
                         </p>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ def template(request):
     return render(request, "template.html",)
 
 def contacts(request):
-    return render(request, "contact-info.html",)
+    return render(request, "contacts.html",)
 
 def location(request):
     return render(request, "location.html",)
