@@ -7,6 +7,11 @@
         <title>Chikbems | </title>
     </head>
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         .background {
             background-image: url("{% static '/images/background.png' %}");
             background-attachment: fixed;
@@ -81,31 +86,48 @@
             background-color: white;
             z-index: -1;
         }
+        .container {
+            min-height: 100%;
+            position: relative;
+        }
+        .bottom_container_holder {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
     </style>
     <body>
-        <div class="background">
-            <div class="background1">
-                <div class="top_bar">
-                    <a href="url 'shopping_cart'" id="top_sl">Cart</a>
-                    <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
-                    <a href="{% url 'products' %}" id="top_sl">Products</a>
-                </div>
-                <div id="rcorner" data-aos="fade-up"></div>
+        <div class="container">
+            <div class="background">
+                <div class="background1">
+                    <div class="top_bar">
+                        <div>
+                            <a href="url 'shopping_cart'" id="top_sl">Cart</a>
+                        </div>
+                        <div>
+                            <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'products' %}" id="top_sl">Products</a>
+                        </div>
+                    </div>
+                    <div id="rcorner" data-aos="fade-up"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div style= "width: 100%;">
-            <div class="bottom_container">
-                <p id="bottom_text">2022 Chikbems, Inc.</p>
-                <p>
-                    <a href="{% url 'products' %}" id="bottom_text">Products</a>
-                </p>
-                <p>
-                    <a href="{% url 'location' %}" id="bottom_text">Location</a>
-                </p>
-                <p>
-                    <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
-                </p>
+            <div class="bottom_container_holder">
+                <div class="bottom_container">
+                    <p id="bottom_text">2022 Chikbems, Inc.</p>
+                    <p>
+                        <a href="{% url 'products' %}" id="bottom_text">Products</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'location' %}" id="bottom_text">Location</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
+                    </p>
+                </div>
             </div>
         </div>
     </body>

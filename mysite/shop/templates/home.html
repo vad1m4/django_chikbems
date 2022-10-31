@@ -21,33 +21,18 @@
             padding: 20px;
             color: #ffffff;
             text-decoration: none;
-            cursor: pointer; 
-            font-family:'Consolas';
         }
         #top_sl {
-            text-align: center; 
             color: #ffffff;
             text-decoration: none;
             cursor: pointer; 
             font-size: 150%;
-            font-family:'Consolas';
             width: 100%;
             z-index: 1;
         }
-        .text, .bottom_container, .info_text {
+        .text, .bottom_container, .info_text, #paragraph_camera, #top_sl, .top_bar, #bottom_text, #bottom_text_sl {
             font-family: 'Consolas';
             text-align: center;
-        }
-        .info_text {
-            font-size: 150%;
-            padding: 10px;
-            margin-left: 200px;
-            margin-right: 200px;
-        }
-        #paragraph_camera {
-            font-family: 'Consolas';
-            text-align: center;
-            margin: 0;
         }
         #rcorner {
             border-radius: 15px;
@@ -57,8 +42,13 @@
             background-color: white;
             margin: 10% 11% 3% 11%; 
         }
-        body, html, .background1 {
+        body, html, .background1, #paragraph_camera {
             margin: 0;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
         .top_bar {
             background-image: linear-gradient(to bottom, #000000 0%, transparent 10%); 
@@ -90,17 +80,23 @@
             cursor: pointer; 
             color: black;
             display: block;
-            transition: background-color 0.5s;
-            transition: color 0.5s;
+            transition: color 0.5s, background-color 0.5s;
         }
         .product:hover {
             background-color: #a70000;
             color: white;
         }
+        .info_text {
+            font-size: 150%;
+            padding: 10px;
+            margin-left: 200px;
+            margin-right: 200px;
+            margin-bottom: 850px;
+            min-height: 100%;
+        }
         #bottom_text, #bottom_text_sl {
             color: #616161;
             text-decoration: none; 
-            font-family:'Consolas';
         }
         #bottom_text_sl {
             cursor: pointer;
@@ -108,7 +104,6 @@
         .bottom_container {
             display: grid;
             grid-template-columns:repeat(4, 1fr);
-            bottom: 0;
             border: 1px solid;
             border-color: rgb(112, 112, 112) transparent transparent transparent;
             background-color: rgb(206, 206, 206);
@@ -127,70 +122,87 @@
             border-radius: 15px; 
             margin-top: 2%"
         }
+        .container {
+            min-height: 100%;
+            position: relative;
+        }
+        .bottom_container_holder {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
     </style>
     <body>
-        <div class="background">
-            <div class="background1">
-                <div class="top_bar">
-                    <a href="url 'shopping_cart'" id="top_sl">Cart</a>
-                    <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
-                    <a href="{% url 'products' %}" id="top_sl">Products</a>
-                </div>
-                <div id="rcorner" data-aos="fade-up">
-                    <div class="text">
-                        <h1>Welcome!</h1>
-                        <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
-                        <p style="font-size:120%">We provide high quality security cameras 
-                        and we can also install them for an additional price.</p>
-                        <h2>See what's new:</h2>
+        <div class="container">
+            <div class="background">
+                <div class="background1">
+                    <div class="top_bar">
+                        <div>
+                            <a href="url 'shopping_cart'" id="top_sl">Cart</a>
+                        </div>
+                        <div>
+                            <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'products' %}" id="top_sl">Products</a>
+                        </div>
                     </div>
-                    <div class="products">
-                        {% for product in products|slice:"0:3"%}
-                        <a href="{%url 'product_detail' product.id%}", class="product">
-                            <img src="{{ product.pictures.url }}" id="picture">
-                            <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
-                            <h3 id="paragraph_camera">{{product.type}}</h3>
-                            <h3 id="paragraph_camera">
-                                {% if not product.has_nightvision %}
-                                No 
-                                {% endif %}
-                                Nightvision</h3>
-                            <h1 id="paragraph_camera">{% widthratio product.price 1 usd %}UAH</h2>
-                        </a>
-                        {% endfor %}
+                    <div id="rcorner" data-aos="fade-up">
+                        <div class="text">
+                            <h1>Welcome!</h1>
+                            <p style="font-size:150%">Welcome to the official site of Chikbems.</p>
+                            <p style="font-size:120%">We provide high quality security cameras 
+                            and we can also install them for an additional price.</p>
+                            <h2>See what's new:</h2>
+                        </div>
+                        <div class="products">
+                            {% for product in products|slice:"0:3"%}
+                            <a href="{%url 'product_detail' product.id%}", class="product">
+                                <img src="{{ product.pictures.url }}" id="picture">
+                                <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
+                                <h3 id="paragraph_camera">{{product.type}}</h3>
+                                <h3 id="paragraph_camera">
+                                    {% if not product.has_nightvision %}
+                                    No 
+                                    {% endif %}
+                                    Nightvision</h3>
+                                <h1 id="paragraph_camera">{% widthratio product.price 1 usd %}UAH</h2>
+                            </a>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="info_text">
-            <h1 style="font-size:200%; margin: 0;", data-aos="fade-up">Why Chikbems?</h1>
-            <p data-aos="fade-up">Chikbems is a fresh company which is chasing the opportunity of becoming
-                the best camera-selling company in Ukraine.
-            </p>
-            <h3 style="font-size: 170%; margin: 0;", data-aos="fade-up">Ready to go</h3>
-            <p data-aos="fade-up">Although we're new, we're already up and running, ready to deliver your
-                cameras at lightning-fast speeds. We've been watching other companies and taking notes. We corrected
-                all of their mistakes and made our own perfect company.
-            </p>
-            <p data-aos="fade-up">We're new, but we're experienced.</p>
-            <h3 style="font-size: 170%; margin: 0;", data-aos="fade-up">We're cheaper</h3>
-            <p data-aos="fade-up">Since we're a fresh company on the market, our prices are cheaper by a fair amount 
-                to attract new customers. By buying from us everybody benefits - you get a cheaper price 
-                and we get a new customer!
-            </p>
-        </div> 
-        <div style= "width: 100%;">
-            <div class="bottom_container">
-                <p id="bottom_text">2022 Chikbems, Inc.</p>
-                <p>
-                    <a href="{% url 'products' %}" id="bottom_text">Products</a>
+            <div class="info_text">
+                <h1 style="font-size:200%; margin: 0;", data-aos="fade-up">Why Chikbems?</h1>
+                <p data-aos="fade-up">Chikbems is a fresh company which is chasing the opportunity of becoming
+                    the best camera-selling company in Ukraine.
                 </p>
-                <p>
-                    <a href="{% url 'location' %}" id="bottom_text">Location</a>
+                <h3 style="font-size: 170%; margin: 0;", data-aos="fade-up">Ready to go</h3>
+                <p data-aos="fade-up">Although we're new, we're already up and running, ready to deliver your
+                    cameras at lightning-fast speeds. We've been watching other companies and taking notes. We corrected
+                    all of their mistakes and made our own perfect company.
                 </p>
-                <p>
-                    <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
+                <p data-aos="fade-up">We're new, but we're experienced.</p>
+                <h3 style="font-size: 170%; margin: 0;", data-aos="fade-up">We're cheaper</h3>
+                <p data-aos="fade-up" style="margin-bottom: 80px">Since we're a fresh company on the market, our prices are cheaper by a fair amount 
+                    to attract new customers. By buying from us everybody benefits - you get a cheaper price 
+                    and we get a new customer!
                 </p>
+            </div> 
+            <div class="bottom_container_holder">
+                <div class="bottom_container">
+                    <p id="bottom_text">2022 Chikbems, Inc.</p>
+                    <p>
+                        <a href="{% url 'products' %}" id="bottom_text">Products</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'location' %}" id="bottom_text">Location</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
+                    </p>
+                </div>
             </div>
         </div>
     </body>

@@ -8,15 +8,22 @@
         <meta charset="UTF-8">
     </head>
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         .background {
             background-image: url("{% static '/images/background.png' %}");
             background-attachment: fixed;
             background-size: 100%;
             padding: 0%;
             position: relative;
+            margin-bottom: 80px;
         }
         .background1 {
             background-image: linear-gradient(to top, white 17%, transparent 50%);
+            text-align: center;
         }
         .top_bar {
             padding: 20px;
@@ -44,7 +51,7 @@
             width: 100%;
             z-index: 1;
         }
-        .text, .bottom_container, .info_text, #top_hl, #bottom_text, #bottom_text_hl, .contact_body, #contact_hl {
+        .text, .bottom_container, .info_text, #top_hl, #bottom_text, #bottom_text_hl, .contact_body, #contact_hl, #social_hl {
             font-family: 'Consolas';
             text-align: center;
         }
@@ -54,7 +61,9 @@
             border-color: #5a5a5a;
             padding: 20px;
             background-color: white;
-            margin: 10% 11% 3% 11%; 
+            margin: 10% 11% 9% 11%; 
+            display: inline-block;
+            width: 70%;
         }
         body, html, .background1 {
             margin: 0;
@@ -86,30 +95,27 @@
             position:relative;
             text-align:right;
             width:100%;
-            height:400px;
+            height:600px;
         }
         .gmap_canvas {
             overflow:hidden;
             background:none!important;
-            width:90%;
-            height:400px;
+            height:600px;
             border-radius: 15px;
+            border: solid 2px;
+            border-color: #5a5a5a;
         }
         .gmap_iframe {
-            height:400px!important;
+            height:600px!important;
         }
-        .container {
+        .content_container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
         }
-        .contacts, .contacts1 {
+        .contacts {
             border-radius: 15px;
             width: 90%;
-            height: 400px;
-            background-color: #a7000021;
-        }
-        .contacts1 {
-            background-color: #a7000025;
+            height: 600px;
         }
         .contact_body {
             height: 100%;
@@ -118,66 +124,145 @@
             padding: 10px;
             text-align: left;
         }
-        #contact_hl {
+        #contact_hl, #social_hl {
             text-decoration: none;
             cursor: pointer;
             color: #616161;
             font-size: 110%;
-            margin: 0 auto;
+            margin-top: 22px;
+            display: inline-block;
+            transition: color 0.2s;
+            margin-left: 7px;
+        }
+        #contact_hl:hover, #social_hl:hover {
+            color: #a70000;
+        }
+        .container {
+            min-height: 100%;
+            position: relative;
+        }
+        .bottom_container_holder {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .contact_img_list {
+            display: grid;
+            grid-template-columns: 30px auto;
+            font-size: 120%;
+        }
+        #contact_emoji {
+            text-align: center;
+            filter: grayscale(100%) contrast(300%);
+        }
+        .contact_p {
+            margin: 0; 
+            font-size: 200%;
+        }
+        .social_container {
+            display: grid;
+            grid-template-columns: 35px auto;
+            grid-template-rows: repeat(4, 64px);
+            font-size: 120%;
+        }
+        .social_media_icon {
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            margin-top: 2.5px;
+        }
+        #social_hl {
+            margin-top: 3px;
         }
     </style>
     <body>
-        <div class="background">
-            <div class="background1">
-                <div class="top_bar">
-                    <a href="url 'shopping_cart'" id="top_hl">Cart</a>
-                    <a href="{%url 'home'%}", id="top_hl">Chikbems</a>
-                    <a href="{% url 'products' %}" id="top_hl">Products</a>
-                </div>
-                <div id="rcorner" data-aos="fade-up">
-                    <div class="container">
-                        <div class="mapouter">
-                            <div class="gmap_canvas">
-                                <iframe class="gmap_iframe" style="filter: invert(100%) grayscale(100%);" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Ippt Nu Lʹvivsʹka Politekhnika&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                            </div>
-                        </div>
-                        <div class="contacts">
-                            <div class="contact_body">
-                                <p style="margin: 0; font-size: 200%;">Visit us</p>
-                                <div class="contact_img_list">
-                                    <p style="filter: grayscale(100%);">&#128222;
-                                        <a href="" id="contact_hl">+380673710163</a>
-                                    </p>
-                                    <p style="filter: grayscale(100%);">&#128231;
-                                        <a href="" id="contact_hl">chikbems@email.com</a>
-                                    </p>
-                                    <p style="filter: grayscale(100%);">&#128205;
-                                        <a href="" id="contact_hl">Ivana Horbachevs'koho St, 18, L'viv, L'vivs'ka oblast, 79000</a>
-                                    </p>
+        <div class="container">
+            <div class="background">
+                <div class="background1">
+                    <div class="top_bar">
+                        <a href="url 'shopping_cart'" id="top_hl">Cart</a>
+                        <a href="{%url 'home'%}", id="top_hl">Chikbems</a>
+                        <a href="{% url 'products' %}" id="top_hl">Products</a>
+                    </div>
+                    <div id="rcorner" data-aos="fade-up">
+                        <div class="content_container">
+                            <div class="contacts">
+                                <div class="contact_body">
+                                    <p class="contact_p">Visit us</p>
+                                    <div class="contact_img_list">
+                                        <div>
+                                            <p id="contact_emoji">&#128222;</p>
+                                        </div>
+                                        <div>
+                                            <a href="tel: +380673710163" id="contact_hl">+380673710163</a>
+                                        </div>
+                                        <div>
+                                            <p id="contact_emoji">&#128231;</p>
+                                        </div>
+                                        <div>
+                                            <a href="mailto: chikbems@email.com" id="contact_hl">chikbems@email.com</a>
+                                        </div>
+                                        <div>
+                                            <p id="contact_emoji">&#128205;</p>
+                                        </div>
+                                        <div>
+                                            <a target="_blank" href="https://www.google.com/maps/place/Ippt+Nu+%22L%CA%B9vivs%CA%B9ka+Politekhnika%22,+Ivana+Horbachevs'koho+St,+18,+L'viv,+L'vivs'ka+oblast,+79000/@49.8285261,24.0083214,18z/data=!3m1!4b1!4m5!3m4!1s0x473add7df5a9921f:0xc59052d9e18b2d4c!8m2!3d49.8285246!4d24.0092416" id="contact_hl">Ivana Horbachevs'koho St, 18, L'viv</a>
+                                        </div>
+                                    </div>
+                                    <p class="contact_p" style="margin-bottom: 20px; margin-top: 60px;">Find us on social media</p>
+                                    <div class="social_container">
+                                        <div class="social_media_icon">
+                                            <img src="{% static 'images/facebook.svg' %}">
+                                        </div>
+                                        <div>
+                                            <a target="_blank" href="https://www.facebook.com/nulpippt/" id="social_hl">Insitute of Enterprise and Advanced Technologies</a>
+                                        </div>
+                                        <div class="social_media_icon">
+                                            <img src="{% static 'images/youtube.svg' %}" style="filter: grayscale(100%) contrast(500%);">
+                                        </div>
+                                        <div>
+                                            <a target="_blank" href="https://www.youtube.com/watch?v=PjKJV1tBfV4" id="social_hl">LPNU Youtube Channel</a>
+                                        </div>
+                                        <div style="height: 30px;
+                                        width: 28px;
+                                        text-align: center;
+                                        margin-top: 2.5px;">
+                                            <img src="{% static 'images/telegram.svg' %}">
+                                        </div>
+                                        <div>
+                                            <a target="_blank" href="https://t.me/ksi_ippt" id="social_hl">Student's Colleague of IAET</a>
+                                        </div>
+                                        <div>
+                                            <img src="{% static 'images/instagram.svg' %}" class="social_media_icon">
+                                        </div>
+                                        <div>
+                                            <a target="_blank" href="https://www.instagram.com/ippt_prof/?hl=en" id="social_hl">Instagram of IAET (ippt_prof)</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="contacts1">
-                            <div class="contact_body">
-                                <p style="margin: 0; font-size: 200%;">Email us</p>
+                            <div class="mapouter">
+                                <div class="gmap_canvas">
+                                    <iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Ivana Horbachevs'koho St, 18&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div style= "width: 100%;">
-            <div class="bottom_container">
-                <p id="bottom_text">2022 Chikbems, Inc.</p>
-                <p>
-                    <a href="{% url 'products' %}" id="bottom_text">Products</a>
-                </p>
-                <p>
-                    <a href="{% url 'location' %}" id="bottom_text">Location</a>
-                </p>
-                <p>
-                    <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
-                </p>
+            <div class="bottom_container_holder">
+                <div class="bottom_container">
+                    <p id="bottom_text">2022 Chikbems, Inc.</p>
+                    <p>
+                        <a href="{% url 'products' %}" id="bottom_text">Products</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'location' %}" id="bottom_text">Location</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
+                    </p>
+                </div>
             </div>
         </div>
     </body>

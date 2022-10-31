@@ -7,21 +7,27 @@
         <title>Chikbems | {{ product.title }}</title>
     </head>
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         .background {
             background-image: url("{% static '/images/background.png' %}");
             background-attachment: fixed;
             background-size: 100%;
             padding: 0%;
             position: relative;
+            margin-bottom: 80px;
         }
         .background1 {
             background-image: linear-gradient(to top, white 30%, transparent 50%);
+            text-align: center;
         }
         .top_text, .top_bar {
             padding: 20px;
             color: #ffffff;
             text-decoration: none;
-            cursor: pointer; 
         }
         #top_sl {
             color: #ffffff;
@@ -44,7 +50,8 @@
             border-color: #5a5a5a;
             padding: 20px;
             background-color: white;
-            margin: 7% 11% 3% 11%; 
+            margin: 7% 11% 9% 11%;
+            display: inline-block;
         }
         body, html, .background1 {
             margin: 0;
@@ -127,60 +134,77 @@
             margin-left: 25px;
             margin-top: 24px;
             margin-bottom: 24px;
-            transition: background-color 0.5s;
+            transition: background-color 0.2s;
         }
         button:hover {
             background-color: #a70000;
         }
+        .bottom_container_holder {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .container {
+            min-height: 100%;
+            position: relative;
+        }
     </style>
     <body>
-        <div class="background">
-            <div class="background1">
-                <div class="top_bar">
-                    <a href="url 'shopping_cart'" id="top_sl">Cart</a>
-                    <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
-                    <a href="url 'products'" id="top_sl">Products</a>
-                </div>
-                <div id="rcorner" data-aos="fade-up">
-                    <div class="products">
-                        <div class="picture_container">
-                            <img src="{{ product.pictures.url }}" alt="{{ product.title }}" id="picture">
+        <div class="container">
+            <div class="background">
+                <div class="background1">
+                    <div class="top_bar">
+                        <div>
+                            <a href="url 'shopping_cart'" id="top_sl">Cart</a>
                         </div>
-                        <div class="text", style="margin-left: 40px; margin-right: 20px">
-                            <h1> {{ product.title }} </h1>
-                            <b style="font-size: 170%;"> {% widthratio product.price 1 usd %}UAH </b>
-                            <p style="font-size: 150%;">Chracteristics:</p>
-                            <div class="charact_container">
-                                <p>Type</p>
-                                <b> {{ product.type }} </b>
-                                <p>Has nightvision</p>
-                                <b> {% if product.has_nightvision %} 
-                                    Yes
-                                    {% endif %}
-                                    {% if product.has_nightvision == False %} 
-                                    No
-                                    {% endif %}
-                                </b>
+                        <div>
+                            <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'products' %}" id="top_sl">Products</a>
+                        </div>
+                    </div>
+                    <div id="rcorner" data-aos="fade-up">
+                        <div class="products">
+                            <div class="picture_container">
+                                <img src="{{ product.pictures.url }}" alt="{{ product.title }}" id="picture">
                             </div>
-                            <a href="#">
-                                <button>Add to cart</button>
-                            </a>
+                            <div class="text", style="margin-left: 40px; margin-right: 20px">
+                                <h1> {{ product.title }} </h1>
+                                <b style="font-size: 170%;"> {% widthratio product.price 1 usd %}UAH </b>
+                                <p style="font-size: 150%;">Chracteristics:</p>
+                                <div class="charact_container">
+                                    <p>Type</p>
+                                    <b> {{ product.type }} </b>
+                                    <p>Has nightvision</p>
+                                    <b> {% if product.has_nightvision %} 
+                                        Yes
+                                        {% endif %}
+                                        {% if product.has_nightvision == False %} 
+                                        No
+                                        {% endif %}
+                                    </b>
+                                </div>
+                                <a href="#">
+                                    <button>Add to cart</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div style="width: 100%;">
-                    <div class="bottom_container">
-                        <p id="bottom_text">2022 Chikbems, Inc.</p>
-                        <p>
-                            <a href="{% url 'products' %}" id="bottom_text">Products</a>
-                        </p>
-                        <p>
-                            <a href="{% url 'location' %}" id="bottom_text">Location</a>
-                        </p>
-                        <p>
-                            <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
-                        </p>
-                    </div>
+            </div>
+            <div class="bottom_container_holder">
+                <div class="bottom_container">
+                    <p id="bottom_text">2022 Chikbems, Inc.</p>
+                    <p>
+                        <a href="{% url 'products' %}" id="bottom_text">Products</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'location' %}" id="bottom_text">Location</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
+                    </p>
                 </div>
             </div>
         </div>
