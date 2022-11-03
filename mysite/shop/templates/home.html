@@ -72,8 +72,8 @@
             background-color: #5a5a5a;
             border-radius: 15px;
             border: 3px black;
-            height: 400px;
-            width: 300px;
+            height: 18.4vw;
+            width: 14.25vw;
             padding: 10px;
             margin: 0 auto;
             text-decoration: none;
@@ -117,10 +117,10 @@
             z-index: -1;
         }
         #picture {
-            width: 280px;
-            height: 280px;
+            width: 13.3vw;
+            height: 13.3vw;
             border-radius: 15px; 
-            margin-top: 2%"
+            margin-top: 2%
         }
         .container {
             min-height: 100%;
@@ -130,6 +130,12 @@
             position: absolute;
             width: 100%;
             bottom: 0;
+        }
+        .product h3 {
+            font-size: 0.95vw;
+        }
+        .product h1 {
+            font-size: 1vw;
         }
     </style>
     <body>
@@ -159,7 +165,7 @@
                             {% for product in products|slice:"0:3"%}
                             <a href="{%url 'product_detail' product.id%}", class="product">
                                 <img src="{{ product.pictures.url }}" id="picture">
-                                <h3 style="font-size: 120%;" id="paragraph_camera">{{product.title}}</h2>
+                                <h3 id="paragraph_camera">{{product.title}}</h2>
                                 <h3 id="paragraph_camera">{{product.type}}</h3>
                                 <h3 id="paragraph_camera">
                                     {% if not product.has_nightvision %}

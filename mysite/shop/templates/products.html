@@ -4,9 +4,14 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-        <title>Chikbems | {{ product.title }}</title>
+        <title>Chikbems | Products</title>
     </head>
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         .background {
             background-image: url("{% static '/images/background.png' %}");
             background-attachment: fixed;
@@ -15,39 +20,7 @@
             position: relative;
         }
         .background1 {
-            background-image: linear-gradient(to top, white 30%, transparent 50%);
-        }
-        .top_text, .top_bar {
-            padding: 20px;
-            color: #ffffff;
-            text-decoration: none;
-            cursor: pointer; 
-        }
-        #top_sl {
-            color: #ffffff;
-            text-decoration: none;
-            cursor: pointer; 
-            font-size: 150%;
-            width: 100%;
-        }
-        .text, .bottom_container, .info_text, .top_text, .top_bar, #top_sl, #paragraph_camera, #bottom_text, #bottom_text_sl, button {
-            font-family: 'Consolas';
-            text-align: center;
-        }
-        .info_text {
-            font-size: 150%;
-            padding: 10px;
-        }
-        #rcorner {
-            border-radius: 15px;
-            border: 3px solid;
-            border-color: #5a5a5a;
-            padding: 20px;
-            background-color: white;
-            margin: 7% 11% 3% 11%; 
-        }
-        body, html, .background1 {
-            margin: 0;
+            background-image: linear-gradient(to top, white 17%, transparent 50%);
         }
         .top_bar {
             background-image: linear-gradient(to bottom, #000000 0%, transparent 10%); 
@@ -60,30 +33,51 @@
             display: grid;
             grid-template-columns:repeat(3, 1fr);
             text-align: center;
+            z-index: 2;
+            padding: 20px;
+            color: #ffffff;
+            text-decoration: none;
         }
-        .products {
-            display: grid;
-            grid-template-columns:repeat(2, 1fr);
-            text-align: center;
-            height: 608px;
+        #top_sl {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer; 
+            font-size: 150%;
+            width: 100%;
+            z-index: 1;
+        }
+        .text, .bottom_container, .info_text, #top_sl, #bottom_text, #bottom_text_sl, #text_products, .sort_button, .sort_content, .product h1, .product p, #options button {
+            font-family: 'Consolas';
+        }
+        #rcorner {
+            border-radius: 15px;
+            border: 3px solid;
+            border-color: #5a5a5a;
+            padding: 20px;
+            background-color: white;
+            margin: 10% 11% 9% 11%; 
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0;
+            width: 70%;
+        }
+        body, html, .background1 {
+            margin: 0;
         }
         #bottom_text, #bottom_text_sl {
             color: #616161;
-            text-decoration: none;
+            text-decoration: none; 
         }
         #bottom_text_sl {
             cursor: pointer;
         }
         .bottom_container {
             display: grid;
-            width: 100%;
             grid-template-columns:repeat(4, 1fr);
             bottom: 0;
             border: 1px solid;
             border-color: rgb(112, 112, 112) transparent transparent transparent;
             background-color: rgb(206, 206, 206);
-            position: fixed;
-            left: 0;
         }
         .background2 {
             width: 100%;
@@ -93,70 +87,229 @@
             background-color: white;
             z-index: -1;
         }
-        #picture {
-            margin-top: 6%;
-            height: 80%;
-            width: 80%;
-            margin-bottom: -6%;
+        .container {
+            min-height: 100%;
+            position: relative;
+            text-align: center;
         }
-        .picture_container {
-            height: 100%;
+        .bottom_container_holder {
+            position: absolute;
             width: 100%;
-            border-right: 5px solid #5a5a5a;
+            bottom: 0;
         }
-        .charact_container {
+        .sort_filter_container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            text-align: left;
-            margin-left: 16%;
-            color: #616161;
-            font-size: 150%;
+            text-align: center;
         }
-        b {
-            margin-top: 7%;
-        }
-        .button_container {
+        .top_content_container {
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            text-align: center;
+            margin: -20px;
+            padding: 20px;
+            border-bottom: solid #5a5a5a;
         }
-        button, button:hover {
-            background-color: #000000;
-            color: white;
+        #text_products {
             font-size: 300%;
-            padding: 3%;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-top: 10%;
-            transition: background-color 0.5s;
+            margin: 0;
+            padding: 0;
         }
-        button:hover {
-            background-color: #a70000;
+        .sort_button {
+            background-color: #5a5a5a;
+            color: white;
+            padding: 15px;
+            font-size: 120%;
+            cursor: pointer;
+            border: solid black;
+            border-radius: 15px;
+            margin-top: 50px;
+            z-index: 4;
+            padding-left: 50px;
+            padding-right: 50px;
+            width: 80%;
+        }
+        .sort {
+            position: relative;
+            display: inline-block;
+            margin-top: 25px;
+        }
+        .sort_content {
+            height: 0px;
+            overflow: hidden;
+            margin-top: 20px;
+            transition: height .4s ease;
+        }
+        #touch {
+            position: absolute;
+            opacity: 0; 
+            height: 0px;
+        }    
+        #touch:checked + .sort_content {
+            height: 215px;
+        } 
+        .sort_content a, .products_container a {
+            text-decoration: none;
+            font-size: 0.8vw;
+            color: black;
+        }
+        .product {
+            display: grid;
+            grid-template-columns: 200px auto;
+            margin-top: 40px;
+            border: solid #5a5a5a;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .product:hover + .product_image, .product {
+            background-color: rgba(0, 0, 0, 0.1);
+            opacity: 0.9;
+        }
+        .product_image {
+            border-right: solid #5a5a5a;
+            width: 200px;
+            height: 200px;
+        }
+        .product_title_price {
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-template-rows: 80px;
+            border-bottom: solid #5a5a5a 1px;
+        }
+        .product_specifications {
+            display: grid;
+            grid-template-columns:  repeat(2, 1fr);
+            grid-template-rows: repeat(2, 60px);
+        }
+        .product_specifications p {
+            color: #616161;
+            text-align: left;
+            margin-left: 20px;
+        }
+        .picture {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+        }
+        #options {
+            margin: 1%;
+            padding: 8px;
+            font-size: 100%;
+        }
+        #product_title {
+            text-align: left;
+            margin-left: 20px;
+        }
+        #text_holder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #options button {
+            color: #000000;
+            padding: 6px;
+            font-size: 100%;
+            border-radius: 10px;
+            border: solid black 1px;
+            background-color: #ffffff;
+            cursor: pointer;
         }
     </style>
     <body>
-        <div class="background">
-            <div class="background1">
-                <div class="top_bar">
-                    <a href="url 'shopping_cart'" id="top_sl">Cart</a>
-                    <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
-                    <a href="url 'products'" id="top_sl">Products</a>
-                </div>
-                <div id="rcorner" data-aos="fade-up">
-                </div>
-                <div style="width: 100%;">
-                    <div class="bottom_container">
-                        <p id="bottom_text">2022 Chikbems, Inc.</p>
-                        <p>
-                            <a href="" id="bottom_text">Products</a>
-                        </p>
-                        <p>
-                            <a href="" id="bottom_text">Location</a>
-                        </p>
-                        <p>
-                            <a href="" id="bottom_text">Contact Chikbems</a>
-                        </p>
+        <div class="container">
+            <div class="background">
+                <div class="background1">
+                    <div class="top_bar">
+                        <div>
+                            <a href="url 'shopping_cart'" id="top_sl">Cart</a>
+                        </div>
+                        <div>
+                            <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'products' %}" id="top_sl">Products</a>
+                        </div>
                     </div>
+                    <div id="rcorner" data-aos="fade-up">
+                        <div class="top_content_container">
+                            <div class="sort_filter_container">
+                                <div class="sort">
+                                    <label for="touch" class="sort_button"><span>Sort by</span></label>               
+                                    <input type="checkbox" id="touch"> 
+                                    <div class="sort_content">
+                                        <div id="options"><button onclick="addSearchParam('sort', 'new-to-old')">From newest to oldest</button></div>
+                                        <div id="options"><button onclick="addSearchParam('sort', 'old-to-new')">From oldest to newest</button></div>
+                                        <div id="options"><button onclick="addSearchParam('sort', 'low-to-high')">Lower to higher</button></div>
+                                        <div id="options"><button onclick="addSearchParam('sort', 'high-to-low')">Higher to lower</button></div>
+                                    </div>
+                                </div>
+                                <div class="filters">
+                                    <label for="touch" class="sort_button"><span>Sort by</span></label>               
+                                    <input type="checkbox" id="touch"> 
+                                    <div class="filter_content">
+                                        <div id="options"><button onclick="addSearchParam('sort', 'high-to-low')">Submit</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="text_holder">
+                                <p id="text_products">Products</p>
+                            </div>
+                        </div>
+                        <div class="products_container">
+                            {% for product in products %}
+                            <a href="{%url 'product_detail' product.id%}" class="product">
+                                <div class="product_image">
+                                    <img src="{{ product.pictures.url }}" alt="{{ product.title }}" class="picture">
+                                </div>
+                                <div class="product_info_container">
+                                    <div class="product_title_price">
+                                        <div id="product_title">
+                                            <h1>{{ product.title }}</h1>
+                                        </div>
+                                        <div id="product_price">
+                                            <h1>{% widthratio product.price 1 usd %}UAH</h1>
+                                        </div>
+                                    </div>
+                                    <div class="product_specifications">
+                                        <div id="product_nv">
+                                            <p>Has nightvision?</p>
+                                        </div>
+                                        <div id="product_nv_tf">
+                                            <p>
+                                                {% if product.has_nightvision %} 
+                                                Yes
+                                                {% endif %}
+                                                {% if product.has_nightvision == False %} 
+                                                No
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <div id="product_type">
+                                            <p>Type:</p>
+                                        </div>  
+                                        <div id="product_type_out">
+                                            <p>{{ product.type }}</p>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom_container_holder">
+                <div class="bottom_container">
+                    <p id="bottom_text">2022 Chikbems, Inc.</p>
+                    <p>
+                        <a href="{% url 'products' %}" id="bottom_text">Products</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'location' %}" id="bottom_text">Location</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -164,5 +317,23 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+    <script>
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0.5);
+        }
+
+        const searchQuery = new URLSearchParams(window.location.search);
+
+        function addSearchParam(param, value) {
+            if (searchQuery.has(param)) {
+                searchQuery.set(param, value)
+            } else {
+                searchQuery.append(param, value)
+            }
+            // alert(searchQuery.toString())
+            location.href = '?' + searchQuery.toString()
+            // window.location.href = searchQuery.toString()
+        }
     </script>
 </html>
