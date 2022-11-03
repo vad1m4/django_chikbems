@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import Product
-from .filters import ProductFilter
 
 def home(request):
     products = Product.objects.all().order_by("-id")
@@ -25,22 +24,25 @@ def products(request):
     products = Product.objects.all()
 
     type_filter = request.GET.get("type","")
+    type_var = ""
     if type_filter == "universal":
-        products = products.filter(type="Universal")
-        print("UNIVERSAL")
+        type_var = "Universal"
+        products = products.filter(type=type_var)
     elif type_filter == "outdoors":
-        products = products.filter(type="Outdoors")
+        type_var = "Outdoors"
+        products = products.filter(type=type_var)
     elif type_filter == "indoors":
-        products = products.filter(type="Indoors")
-    # types = request.GET.getlist('type')
-    # for type in types:
-    #     products = products.filter(type=type)
+        type_var = "Indoors"
+        products = products.filter(type=type_var)
 
-    has_nv_filter = request.GET.get("has_nv", "")
-    if has_nv_filter == 'yes':
-        products = products.filter(has_nightvision=True)
-    elif has_nv_filter == 'no':
-        products = products.filter(has_nightvision=False)
+    has_nv_filter = request.GET.get("has_nightvision", "")
+    nv_var = ""
+    if has_nv_filter == 'true':
+        nv_var = True
+        products = products.filter(has_nightvision=nv_var)
+    elif has_nv_filter == 'false':
+        nv_var = False
+        products = products.filter(has_nightvision=nv_var)
 
     sort_by = request.GET.get("sort", "new-to-old")
     if sort_by == "new-to-old":
@@ -52,10 +54,10 @@ def products(request):
     elif sort_by == "low-to-high":
         products = products.order_by("price")
 
-    products_filter = ProductFilter(request.GET, queryset=products)
     context = {
         "products": products, 
         "usd": usd,
-        "products_filter": products_filter,
+        "nv_var": nv_var,
+        "type_var": type_var,
     }
     return render(request, "products.html", context)

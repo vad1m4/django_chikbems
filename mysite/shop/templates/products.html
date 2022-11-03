@@ -46,7 +46,7 @@
             width: 100%;
             z-index: 1;
         }
-        .text, .bottom_container, .info_text, #top_sl, #bottom_text, #bottom_text_sl, #text_products, .sort_button, .sort_content, .product h1, .product p, #options button {
+        .text, .bottom_container, .info_text, #top_sl, #bottom_text, #bottom_text_sl, #text_products, .sort_filter_button, .sort_content, .product h1, .product p, #options button, #type, #no_results_text, #nv_select, #filter_buttons  {
             font-family: 'Consolas';
         }
         #rcorner {
@@ -114,8 +114,12 @@
             font-size: 300%;
             margin: 0;
             padding: 0;
+            transition: color 0.5s;
         }
-        .sort_button {
+        #text_products:hover {
+            color: #a70000;
+        }
+        .sort_filter_button {
             background-color: #5a5a5a;
             color: white;
             padding: 15px;
@@ -128,13 +132,18 @@
             padding-left: 50px;
             padding-right: 50px;
             width: 80%;
+            transition: background-color 0.1s;
         }
-        .sort {
+        .sort_filter_button:hover {
+            background-color: #424242;
+        }
+        .sort, .filters {
             position: relative;
             display: inline-block;
             margin-top: 25px;
+            min-width: 230px;
         }
-        .sort_content {
+        .sort_content, .filter_content {
             height: 0px;
             overflow: hidden;
             margin-top: 20px;
@@ -147,6 +156,14 @@
         }    
         #touch:checked + .sort_content {
             height: 215px;
+        }
+        #touch1 {
+            position: absolute;
+            opacity: 0; 
+            height: 0px;
+        }    
+        #touch1:checked + .filter_content {
+            height: 140px;
         } 
         .sort_content a, .products_container a {
             text-decoration: none;
@@ -199,6 +216,10 @@
         #product_title {
             text-align: left;
             margin-left: 20px;
+            transition: color 0.2s;
+        }
+        #product_title:hover {
+            color: #a70000;
         }
         #text_holder {
             display: flex;
@@ -210,9 +231,56 @@
             padding: 6px;
             font-size: 100%;
             border-radius: 10px;
-            border: solid black 1px;
+            border: solid #5a5a5a 1px;
             background-color: #ffffff;
             cursor: pointer;
+            transition: background-color 0.1s;
+        }
+        #options button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        #type, #nv_select {
+            width: 185px;
+            margin-top: 10px;
+            padding: 7px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        #type option {
+            padding: 10px;
+        }
+        #no_results_text {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        #filter_buttons {
+            margin: 1%;
+            padding: 8px;
+            font-size: 100%;
+            color: #000000;
+            padding: 6px;
+            font-size: 100%;
+            border-radius: 10px;
+            border: solid #5a5a5a 1px;
+            background-color: #ffffff;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+            padding-left: 18px;
+            padding-right: 18px;
+            transition: background-color 0.1s;
+        }
+        #filter_buttons:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        select {
+            transition: background-color 0.1s;
+        }
+        select:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        select option {
+            background-color: #ffffff;
         }
     </style>
     <body>
@@ -234,7 +302,7 @@
                         <div class="top_content_container">
                             <div class="sort_filter_container">
                                 <div class="sort">
-                                    <label for="touch" class="sort_button"><span>Sort by</span></label>               
+                                    <label for="touch" class="sort_filter_button"><span>Sort by</span></label>               
                                     <input type="checkbox" id="touch"> 
                                     <div class="sort_content">
                                         <div id="options"><button onclick="addSearchParam('sort', 'new-to-old')">From newest to oldest</button></div>
@@ -244,11 +312,47 @@
                                     </div>
                                 </div>
                                 <div class="filters">
-                                    <label for="touch" class="sort_button"><span>Sort by</span></label>               
-                                    <input type="checkbox" id="touch"> 
+                                    <label for="touch1" class="sort_filter_button"><span>Filters</span></label>               
+                                    <input type="checkbox" id="touch1"> 
                                     <div class="filter_content">
-                                        <div id="options"><button onclick="addSearchParam('sort', 'high-to-low')">Submit</button></div>
+                                        <form action="get">
+                                            <select name="type" id="type" onchange="select_type()">
+                                                <option selected disabled>Choose camera type</option>
+                                                {% if type_var == "Universal" %}
+                                                <option selected value="universal">Universal</option>
+                                                {% else %}
+                                                <option value="universal">Universal</option>
+                                                {% endif %}
+                                                {% if type_var == "Outdoors" %}
+                                                <option selected value="outdoors">Outdoors</option>
+                                                {% else %}
+                                                <option value="outdoors">Outdoors</option>
+                                                {% endif %}
+                                                {% if type_var == "Indoors" %}
+                                                <option selected value="indoors">Indoors</option>
+                                                {% else %}
+                                                <option value="indoors">Indoors</option>
+                                                {% endif %}
+                                            </select>
+                                            <br>
+                                            <select name="nv_select" id="nv_select" onchange="select_nv()">
+                                                <option selected disabled>Nightvision</option>
+                                                {% if nv_var == True %}
+                                                <option selected value="true">Has nightvision</option>
+                                                {% else %}
+                                                <option value="true">Has nightvision</option>
+                                                {% endif %}
+                                                {% if nv_var == False %}
+                                                <option selected value="false">No nightvision</option>
+                                                {% else %}
+                                                <option value="false">No nightvision</option>
+                                                {% endif %}
+                                            </select>
+                                        </form>
+                                        <button id="filter_buttons" onclick="addSearchParam('type', camera_type); addSearchParam('has_nightvision', camera_nv)">Apply</button>
+                                        <a href="{% url 'products' %}"><button id="filter_buttons">Clear</button></a>
                                     </div>
+                                    <!-- ; addSearchParam(,) -->
                                 </div>
                             </div>
                             <div id="text_holder">
@@ -293,6 +397,11 @@
                                     </div> 
                                 </div>
                             </a>
+                            {% empty %}
+                            <div id="no_results_text">
+                                <h1>No items matched your search</h1>
+                                <p>Perhaps, your filters were too specific?</p>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -305,10 +414,10 @@
                         <a href="{% url 'products' %}" id="bottom_text">Products</a>
                     </p>
                     <p>
-                        <a href="{% url 'location' %}" id="bottom_text">Location</a>
+                        <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
                     </p>
                     <p>
-                        <a href="{% url 'contacts' %}" id="bottom_text">Contact Chikbems</a>
+                        <a href="https://instagram.com/vad1m4_" id="bottom_text">Author</a>
                     </p>
                 </div>
             </div>
@@ -319,6 +428,9 @@
         AOS.init();
     </script>
     <script>
+        window.onload = select_type(), select_nv();
+        var camera_type
+        var camera_nv
         window.onbeforeunload = function () {
             window.scrollTo(0, 0.5);
         }
@@ -331,9 +443,14 @@
             } else {
                 searchQuery.append(param, value)
             }
-            // alert(searchQuery.toString())
             location.href = '?' + searchQuery.toString()
-            // window.location.href = searchQuery.toString()
+        }
+
+        function select_type() {
+            globalThis.camera_type = document.getElementById("type").value;
+        }
+        function select_nv() {
+            globalThis.camera_nv = document.getElementById("nv_select").value;
         }
     </script>
 </html>
