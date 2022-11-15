@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product
+from .models import *
 
 def home(request):
     products = Product.objects.all().order_by("-id")
@@ -19,6 +19,20 @@ def contacts(request):
 
 def location(request):
     return render(request, "location.html",)
+
+def shopping_cart(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+    items_sum = sum(items)
+    context = {
+        'items':items,
+        'items_sum':items_sum,
+    }
+    return render(request, "shopping-cart.html", context)
 
 def products(request):
     products = Product.objects.all()

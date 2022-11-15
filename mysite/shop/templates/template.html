@@ -139,5 +139,26 @@
         window.onbeforeunload = function () {
             window.scrollTo(0, 0.5);
         }
+        function getCookie(name) {
+            var cookieArr = document.cookie.split(";");
+
+            for(var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+
+                if(name == cookiePair[0].trim()) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+
+            return null
+        }
+
+        var cart = JSON.parse(getCookie('cart'))
+        if(cart == undefined) {
+            cart = {}
+            console.log("Cart was created")
+            document.cookie = 'cart=' + JSON.stringify(cart)
+        }
+        console.log('Cart:', cart)
     </script>
 </html>

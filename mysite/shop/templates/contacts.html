@@ -181,9 +181,15 @@
             <div class="background">
                 <div class="background1">
                     <div class="top_bar">
-                        <a href="url 'shopping_cart'" id="top_hl">Cart</a>
-                        <a href="{%url 'home'%}", id="top_hl">Chikbems</a>
-                        <a href="{% url 'products' %}" id="top_hl">Products</a>
+                        <div>
+                            <a href="{%url 'shopping_cart'%}" id="top_sl">Cart</a>
+                        </div>
+                        <div>
+                            <a href="{%url 'home'%}", id="top_sl">Chikbems</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'products' %}" id="top_sl">Products</a>
+                        </div>
                     </div>
                     <div id="rcorner" data-aos="fade-up">
                         <div class="content_container">
@@ -275,5 +281,26 @@
         window.onbeforeunload = function () {
             window.scrollTo(0, 0.5);
         }
+        function getCookie(name) {
+            var cookieArr = document.cookie.split(";");
+
+            for(var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+
+                if(name == cookiePair[0].trim()) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+
+            return null
+        }
+
+        var cart = JSON.parse(getCookie('cart'))
+        if(cart == undefined) {
+            cart = {}
+            console.log("Cart was created")
+            document.cookie = 'cart=' + JSON.stringify(cart)
+        }
+        console.log('Cart:', cart)
     </script>
 </html>
